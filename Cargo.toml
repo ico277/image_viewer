@@ -1,11 +1,17 @@
 [package]
 name = "image_viewer"
-version = "0.1.0"
+version = "2.1.0"
 authors = ["ico277"]
 edition = "2018"
+build = "build.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 image = "0.23.14"
 dirs = "3.0.2"
+ctrlc = "*"
+
+[build-dependencies]
+bindgen = "0.53.1"
+cc = "*"
