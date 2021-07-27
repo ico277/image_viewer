@@ -7,7 +7,7 @@ include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 use image::ImageBuffer;
 use std::iter::Iterator;
 
-pub const VERSION: &str = "2.1.1";
+pub const VERSION: &str = "2.2.0";
 
 pub struct Settings {
     pub image_file: String,

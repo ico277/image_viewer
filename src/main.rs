@@ -154,10 +154,31 @@ fn main() {
             }
         };
         if settings.gif_loop {
-            /*loop {
-                eprintln!("Error: gif_loop not implemented yet!");
-                std::process::exit(1);
-            }*/
+            //let frames_len = frames.len();
+            let mut frames2 = frames.to_owned();
+            loop {
+                for frame in frames2 {
+                    let time = time::Duration::from_millis(frame.delay().numer_denom_ms().0 as u64);
+                    let mut img = frame.into_buffer();
+                    let img_dimensions = [img.width() as f32, img.height() as f32];
+                    if img_dimensions[0] <= term_size[0] && img_dimensions[1] <= term_size[1] {
+                        let downscale_ratio = term_size[0] / img_dimensions[0];
+                        let new_width =
+                            img_dimensions[0] * downscale_ratio;
+                        let new_height =
+                            img_dimensions[1] * downscale_ratio;
+                        img = resize(
+                            &img,
+                            new_width.floor() as u32,
+                            new_height.floor() as u32,
+                            FilterType::Nearest,
+                        );
+                    }
+                    display_image(img);
+                    thread::sleep(time);
+                }
+                frames2 = frames.to_owned();
+            }
         } else {
             for frame in frames {
                 let time = time::Duration::from_millis(frame.delay().numer_denom_ms().0 as u64);
